@@ -14,6 +14,8 @@ This is a python module that wraps a Fortran implementation of the 3-D Lomb peri
 
 - Developed and tested in a Linux environment. Build system only tested in Linux.
 
+- Notes on the periodogram are incomplete.
+
 ## Requirements and compilation:
 
 The Fortran code must be compiled and wrapped with f2py to be run.
