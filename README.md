@@ -11,3 +11,19 @@ This is a python module that wraps a Fortran implementation of the 3-D Lomb peri
 ## Caveats:
 
 - Developed and tested in a Linux environment. Build system only tested in Linux.
+
+## Requirements and compilation:
+
+### Requirements:
+
+- gfortran compiler
+
+- python3
+
+- numpy
+
+- matplotlib
+
+### Compilation:
+
+In Linux, simply run `make`.
