@@ -1,6 +1,6 @@
-from periodograms_lib_f.flomb import *
-from periodograms_lib_f.main import *
-from periodograms_lib_f.synth import *
-from periodograms_lib_f.plots import *
+from lomb.flomb import *
+from lomb.main import *
+from lomb.synth import *
+from lomb.plots import *
 
 # ~ __all__ = ["plot"]
