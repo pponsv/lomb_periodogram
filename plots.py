@@ -6,8 +6,6 @@ from .main import detect_peaks
 
 def plotlomb2(x, y, xlabel='m', title=''):
     """
-    # plotlomb2
-
     Plots the 2D lomb periodogram.
     """
     fig, ax = plt.subplots(1,1, figsize=[5,3])
@@ -17,6 +15,9 @@ def plotlomb2(x, y, xlabel='m', title=''):
 
 
 def plotmapa(mapa, ns, ms, norm=None, npeaks=3, title='', fig=None):
+    """
+    Plots the 3D lomb periodogram, and optionally finds the points with maxima.
+    """
     peaks = detect_peaks(mapa, npeaks)
     # mapa=mapa.T
     if fig is None:

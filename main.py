@@ -2,6 +2,9 @@ import numpy as np
 
 
 def bandpass(sig, flim, dt=0.001):
+    """
+    Simple bandpass filter
+    """
     ff = np.fft.rfft(sig)
     fr = np.fft.rfftfreq(len(sig), 0.001)
     mask = (np.abs(fr)<flim[1]) & (np.abs(fr)>flim[0])
@@ -10,12 +13,20 @@ def bandpass(sig, flim, dt=0.001):
     return nsig
 
 def mat_bandpass(msig, flim, dt=0.001):
+    """
+    Simple bandpass filter for 2D arrays (along the second dimension)
+    """
     nmat = []
     for sig in msig:
         nmat.append(bandpass(sig, flim, dt))
     return np.array(nmat)
 
 def detect_peaks(arr, num=3):
+    """
+    Simple peak-detecting algorithm for 2D arrays. 
+
+    *Must be improved*
+    """
     tmp = arr.copy()
     peaks = []
     for n in range(num):

@@ -1,6 +1,9 @@
 import numpy as np
 
 def single_signal_noise(t, modes, theta, phi, anoise=0.2, pnoise=0.2):
+    """
+    Makes a signal, optionally with amplitude and/or phase noise
+    """
     modes = np.array(modes)
     assert modes.shape[1]==4, 'Modes not shaped well'
     fac = np.sum(np.abs(modes[:,3]))*anoise
@@ -13,6 +16,9 @@ def single_signal_noise(t, modes, theta, phi, anoise=0.2, pnoise=0.2):
 
 
 def csignal(t, modes, thetas, phis, anoise=0.2, pnoise=0.2):
+    """
+    Makes a matrix of signals, optionally with amplitude and/or phase noise
+    """
     smatrix = []
     for theta, phi in zip(thetas, phis):
         smatrix.append(single_signal_noise(t, modes, theta=theta, phi=phi, anoise=anoise, pnoise=pnoise))
