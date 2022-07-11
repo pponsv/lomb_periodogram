@@ -5,6 +5,11 @@ from matplotlib.ticker import MultipleLocator
 from .main import detect_peaks
 
 def plotlomb2(x, y, xlabel='m', title=''):
+    """
+    # plotlomb2
+
+    Plots the 2D lomb periodogram.
+    """
     fig, ax = plt.subplots(1,1, figsize=[5,3])
     ax.bar(x, y)
     ax.set(ylabel='P [a.u]', xlabel='m', title=title)
