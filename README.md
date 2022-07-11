@@ -30,6 +30,8 @@ The Fortran code must be compiled and wrapped with f2py to be run.
 
 - matplotlib
 
+- pdoc (to generate the documentation)
+
 ### Compilation:
 
 In Linux, simply run `make` from the main directory.
