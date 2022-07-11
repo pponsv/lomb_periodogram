@@ -10,6 +10,8 @@ This is a python module that wraps a Fortran implementation of the 3-D Lomb peri
 
 - A synthetic signal generator is also included.
 
+- Matlab code is included.
+
 ### Caveats:
 
 - Developed and tested in a Linux environment. Build system only tested in Linux.
