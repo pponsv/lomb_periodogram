@@ -2,6 +2,11 @@
 
 This is a python module that wraps a Fortran implementation of the 3-D Lomb periodogram.
 
+## Documentation
+
+The documentation of the python API can be found [here]{https://pponsv.github.io/lomb_periodogram}.
+A description of the periodogram can also be found in [here]{./doc/}
+
 ## Features:
 
 - Parallel (multi-core, not multi-cpu) Fortran implementation, wrapped to python using f2py (part of numpy).
