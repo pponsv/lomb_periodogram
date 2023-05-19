@@ -1,21 +1,21 @@
-import lomb.flomb as fl
-from lomb.main import *
-from lomb.synth import *
-from lomb.plots import *
+from . import flomb as fl
+from .main import *
+from .synth import *
+from .plots import *
 
 
 def easylomb3(*args, **kwargs):
     r"""
-    Calculates the lomb periodogram for an array of signals at different positions 
+    Calculates the lomb periodogram for an array of signals at different positions
     (given by their magnetic coordinates).
 
     $$
-        P(\omega, n, m) = \dfrac{1}{YY} 
-        \left( 
-            \dfrac{\left[\sum_i y_i \cos(\alpha_i - \tau)\right]^2}{\sum_i \cos^2 (\alpha_i - \tau)} 
-            + 
+        P(\omega, n, m) = \dfrac{1}{YY}
+        \left(
+            \dfrac{\left[\sum_i y_i \cos(\alpha_i - \tau)\right]^2}{\sum_i \cos^2 (\alpha_i - \tau)}
+            +
             \dfrac{\left[\sum_i y_i \sin(\alpha_i - \tau)\right]^2}{\sum_i \sin^2 (\alpha_i - \tau)}
-        \right) 
+        \right)
     $$
 
     where:
@@ -23,9 +23,9 @@ def easylomb3(*args, **kwargs):
     - $\alpha$ is given by:
 
     $$
-        \tan 2 \tau = \dfrac{\sum_i \sin 2\alpha_i}{\sum_i \cos 2\alpha_i} 
+        \tan 2 \tau = \dfrac{\sum_i \sin 2\alpha_i}{\sum_i \cos 2\alpha_i}
     $$
-    
+
     - $YY$ is given by:
 
     $$
@@ -56,11 +56,12 @@ def easylomb3(*args, **kwargs):
     """
     return fl.easylomb3(*args, **kwargs)
 
+
 def easylomb2(*args, **kwargs):
     r"""
-    Same as above, but considering one angle equal to zero. 
+    Same as above, but considering one angle equal to zero.
 
-    
+
     Wrapper around the fortran code.
 
     - Input:
@@ -80,4 +81,6 @@ def easylomb2(*args, **kwargs):
         -`mapa`: 1D-array with the values of the periodogram
     """
     return fl.easylomb2(*args, **kwargs)
+
+
 # ~ __all__ = ["plot"]
