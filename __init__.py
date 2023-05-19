@@ -54,7 +54,7 @@ def easylomb3(*args, **kwargs):
 
         -`mapa`: 2D-array with the values of the periodogram
     """
-    return fl.easylomb3(*args, **kwargs)
+    return fl.easylomb3(*args, **kwargs).T
 
 
 def easylomb2(*args, **kwargs):
