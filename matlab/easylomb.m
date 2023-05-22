@@ -142,7 +142,7 @@ function P = lomb3(t, thetas, phis, signal, f, m, n, varargin)
 	end
 	
 % Find tau
-	alpha = w*t - repmat(n*phis + m*thetas, 1, length(t)) ;
+	alpha = repmat(n*phis + m*thetas, 1, length(t)) - w*t;
 	
 % 	arg = sum(sin(2*alpha), 'all') / sum(cos(2*alpha), 'all');
 	tau = 0.5*atan2(sum(sin(2*alpha), 'all'), sum(cos(2*alpha), 'all'));

@@ -25,7 +25,7 @@ function sig = makesig(t, phis, thetas, modes)
 			w = 2*pi*modes(j, 2);
 			m = modes(j, 3);
 			n = modes(j, 4);
-			tsig = tsig + A*exp(1i*(w*t - n*phis(i) - m*thetas(i)))';
+			tsig = tsig + A*exp(1i*( n*phis(i) + m*thetas(i) - w*t))';
 		end
 		sig(i, :) = real(tsig);
 	end

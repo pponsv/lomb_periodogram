@@ -50,7 +50,7 @@ def plotmapa(mapa, ns, ms, norm=None, npeaks=3, title="", fig=None):
         bbox={"boxstyle": "square,pad=0.5", "ec": "k", "fc": "w"},
     )
     axes = [ax1, ax2, ax3, axcm, axtitle]
-    img = ax1.pcolor(
+    img = ax1.pcolormesh(
         ns,
         ms,
         mapa,
@@ -58,9 +58,10 @@ def plotmapa(mapa, ns, ms, norm=None, npeaks=3, title="", fig=None):
         cmap="magma",
         vmin=0.05 * mapa.max(),
         norm=norm,
-        # ~ rasterized=True,
-        linewidth=0.01,
-        edgecolors="face",
+        alpha=1,
+        rasterized=True,
+        linewidth=0,
+        edgecolors="none",
     )
     fig.colorbar(img, cax=axcm, label="P [a.u]")
     # args = np.array(np.unravel_index(mapa.argmax(), mapa.shape))
