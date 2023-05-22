@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 from matplotlib import gridspec
 from matplotlib.ticker import MultipleLocator
+import numpy as np
 from .main import detect_peaks
 
 
