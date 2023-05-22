@@ -94,3 +94,51 @@ def plotmapa(mapa, ns, ms, norm=None, npeaks=3, title="", fig=None):
     ax3.invert_xaxis()
     ax3.set_xlabel("P [a.u]")
     return fig, axes
+
+
+def clearfig(fig):
+    axes = np.array(fig.get_axes()).flatten()
+    for ax in axes:
+        ax.cla()
+    fig.clear()
+
+
+def plotmapa_alone(mapa, ns, ms, norm=None, title="", fig=None, figsize=None):
+    """
+    Plots the 3D lomb periodogram, and optionally finds the points with maxima.
+    """
+    # mapa=mapa.T
+    if fig is None:
+        fig = plt.figure(
+            figsize=figsize, constrained_layout=False, tight_layout=False, dpi=300
+        )
+    else:
+        clearfig(fig)
+
+    ax1 = fig.add_subplot()
+
+    img = ax1.pcolor(
+        ns,
+        ms,
+        mapa,
+        # shading='nearest',
+        cmap="magma",
+        vmin=0.05 * mapa.max(),
+        norm=norm,
+        rasterized=True,
+        # linewidth=0.01,
+        # edgecolors='face'
+    )
+    cbar = fig.colorbar(img, ax=ax1, label="P [a.u]", format="%.1e")
+    # args = np.array(np.unravel_index(mapa.argmax(), mapa.shape))
+    ax1.set_ylabel("m")
+    ax1.xaxis.set_minor_locator(MultipleLocator(1))
+    ax1.yaxis.set_minor_locator(MultipleLocator(1))
+    ax1.xaxis.set_major_locator(MultipleLocator(5))
+    ax1.yaxis.set_major_locator(MultipleLocator(5))
+    ax1.grid(which="major", color="w", lw=0.3, alpha=0.2, ls="--", zorder=1000)
+    ax1.grid(which="minor", color="r", lw=0.1, alpha=0.5, ls="--", zorder=1000)
+
+    ax1.set_xlabel("n")
+
+    return fig, ax1
