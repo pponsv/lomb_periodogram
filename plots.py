@@ -71,6 +71,8 @@ def plotmapa(mapa, ns, ms, norm=None, npeaks=3, title="", fig=None):
     ax1.yaxis.set_minor_locator(MultipleLocator(1))
     ax1.xaxis.set_major_locator(MultipleLocator(5))
     ax1.yaxis.set_major_locator(MultipleLocator(5))
+    ax1.grid(which="major", color="w", lw=0.3, alpha=0.2, ls="--", zorder=1000)
+    ax1.grid(which="minor", color="r", lw=0.1, alpha=0.5, ls="--", zorder=1000)
     ax1.xaxis.tick_top()
     ax1.xaxis.set_label_position("top")
     ax1.set_xlabel("n")
@@ -118,7 +120,7 @@ def plotmapa_alone(mapa, ns, ms, norm=None, title="", fig=None, figsize=None):
 
     ax1 = fig.add_subplot()
 
-    img = ax1.pcolor(
+    img = ax1.pcolormesh(
         ns,
         ms,
         mapa,
@@ -126,7 +128,11 @@ def plotmapa_alone(mapa, ns, ms, norm=None, title="", fig=None, figsize=None):
         cmap="magma",
         vmin=0.05 * mapa.max(),
         norm=norm,
+        shading="nearest",
+        alpha=1,
         rasterized=True,
+        linewidth=0,
+        edgecolors="none",
         # linewidth=0.01,
         # edgecolors='face'
     )
