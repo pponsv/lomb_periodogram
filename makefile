@@ -20,5 +20,5 @@ clean:
 	rm -f *.so
 
 doc:
-	(cd .. ; pdoc --math $(DIR) -o ./$(DIR)/doc/docs)
+	(cd .. ; pdoc --math $(CURDIR) -o ./$(DIR)/doc/docs)
 	echo $(DIR)
