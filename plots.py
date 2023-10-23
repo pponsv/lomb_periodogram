@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 from matplotlib import gridspec
 from matplotlib.ticker import MultipleLocator
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 import numpy as np
 from .main import detect_peaks
 
@@ -106,19 +107,56 @@ def clearfig(fig):
     fig.clear()
 
 
-def plotmapa_alone(mapa, ns, ms, norm=None, title="", fig=None, figsize=None):
+def plotmapa_alone_new(mapa, ns, ms, ax, title="", norm=None):
+    fig = ax.get_figure()
+    divider = make_axes_locatable(ax)
+    ax_cb = divider.append_axes("right", size=0.1, pad=0.05)
+
+    fig.add_axes(ax_cb)
+    img = ax.pcolormesh(
+        ns,
+        ms,
+        mapa,
+        # shading='nearest',
+        cmap="magma",
+        vmin=0.05 * mapa.max(),
+        norm=norm,
+        shading="nearest",
+        alpha=1,
+        rasterized=True,
+        linewidth=0,
+        edgecolors="none",
+        # linewidth=0.01,
+        # edgecolors='face'
+    )
+    ax.set_aspect("equal")
+    cbar = plt.colorbar(img, cax=ax_cb, format="%.1e")
+    cbar.ax.set(title="P [a.u]")
+    ax.set(title=title, xlabel="n", ylabel="m")
+    ax.xaxis.set_minor_locator(MultipleLocator(1))
+    ax.yaxis.set_minor_locator(MultipleLocator(1))
+    ax.xaxis.set_major_locator(MultipleLocator(5))
+    ax.yaxis.set_major_locator(MultipleLocator(5))
+    ax.grid(which="major", color="w", lw=0.3, alpha=0.2, ls="--", zorder=1000)
+    ax.grid(which="minor", color="r", lw=0.1, alpha=0.2, ls="--", zorder=1000)
+
+
+def plotmapa_alone(mapa, ns, ms, norm=None, title="", fig=None, ax=None, figsize=None):
     """
     Plots the 3D lomb periodogram, and optionally finds the points with maxima.
     """
     # mapa=mapa.T
-    if fig is None:
-        fig = plt.figure(
-            figsize=figsize, constrained_layout=False, tight_layout=False, dpi=300
-        )
+    if ax is None:
+        if fig is None:
+            fig = plt.figure(
+                figsize=figsize, constrained_layout=False, tight_layout=False, dpi=100
+            )
+        else:
+            clearfig(fig)
+        ax1 = fig.add_subplot()
     else:
-        clearfig(fig)
-
-    ax1 = fig.add_subplot()
+        fig = ax.get_figure()
+        ax1 = ax
 
     img = ax1.pcolormesh(
         ns,
@@ -136,7 +174,7 @@ def plotmapa_alone(mapa, ns, ms, norm=None, title="", fig=None, figsize=None):
         # linewidth=0.01,
         # edgecolors='face'
     )
-    cbar = fig.colorbar(img, ax=ax1, label="P [a.u]", format="%.1e")
+    cbar = plt.colorbar(img, ax=ax1, label="P [a.u]", format="%.1e")
     # args = np.array(np.unravel_index(mapa.argmax(), mapa.shape))
     ax1.set_ylabel("m")
     ax1.xaxis.set_minor_locator(MultipleLocator(1))
@@ -144,8 +182,46 @@ def plotmapa_alone(mapa, ns, ms, norm=None, title="", fig=None, figsize=None):
     ax1.xaxis.set_major_locator(MultipleLocator(5))
     ax1.yaxis.set_major_locator(MultipleLocator(5))
     ax1.grid(which="major", color="w", lw=0.3, alpha=0.2, ls="--", zorder=1000)
-    ax1.grid(which="minor", color="r", lw=0.1, alpha=0.5, ls="--", zorder=1000)
+    ax1.grid(which="minor", color="r", lw=0.1, alpha=0.2, ls="--", zorder=1000)
 
     ax1.set_xlabel("n")
+    ax1.set(title=title)
+    # fig.suptitle(title)
 
     return fig, ax1
+
+
+def plotmapa_alone_ax(mapa, ns, ms, ax, norm=None, title=""):
+    """
+    Plots the 3D lomb periodogram, and optionally finds the points with maxima.
+    """
+
+    img = ax.pcolormesh(
+        ns,
+        ms,
+        mapa,
+        # shading='nearest',
+        cmap="magma",
+        vmin=0.05 * mapa.max(),
+        norm=norm,
+        shading="nearest",
+        alpha=1,
+        rasterized=True,
+        linewidth=0,
+        edgecolors="none",
+        # linewidth=0.01,
+        # edgecolors='face'
+    )
+    cbar = plt.colorbar(img, ax=ax, label="P [a.u]", format="%.1e")
+    # args = np.array(np.unravel_index(mapa.argmax(), mapa.shape))
+    ax.set_ylabel("m")
+    ax.xaxis.set_minor_locator(MultipleLocator(1))
+    ax.yaxis.set_minor_locator(MultipleLocator(1))
+    ax.xaxis.set_major_locator(MultipleLocator(5))
+    ax.yaxis.set_major_locator(MultipleLocator(5))
+    ax.grid(which="major", color="w", lw=0.3, alpha=0.2, ls="--", zorder=1000)
+    ax.grid(which="minor", color="r", lw=0.1, alpha=0.5, ls="--", zorder=1000)
+
+    ax.set_xlabel("n")
+
+    return ax
