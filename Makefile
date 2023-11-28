@@ -13,7 +13,7 @@ DIR  = $(shell basename $(CURDIR))
 .PHONY : all clean doc
 
 all: ./src/main.f90
-	f2py3 -c --f90flags='-Wno-tabs -fopenmp -O2' -lgomp -m $(MAIN) $<
+	f2py -c --f90flags='-Wno-tabs -fopenmp -O2' -lgomp -m $(MAIN) $<
 	@$(MAKE) doc
 
 clean:
