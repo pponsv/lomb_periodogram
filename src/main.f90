@@ -1,16 +1,15 @@
 module helper
 
    implicit none
-!~ 	private
-!~ 	public  :: lomb2, lomb3
+
 
 contains
 
+! Calculates the Lomb periodogram with spatial dependencies given by the angles
+! thetas and phis, for mode number m, n, and frequency f.
+! In contrast to "lomb3", here time, thetas, phis and sigs are vectors, which allows
+! for non-uniform time bases, with different lengths etc.
    function lomb3_difftimes(time, thetas, phis, sigs, m, n, f) result(p)
-!~ 	   Calculates the Lomb periodogram with spatial dependencies given by the angles
-!~      thetas and phis, for mode number m, n, and frequency f.
-!~       In contrast to "lomb3", here time, thetas, phis and sigs are vectors, which allows
-!~      for non-uniform time bases, with different lengths etc.
       implicit none
 
       real*8, parameter  :: pi = 4*atan(1.)
@@ -22,10 +21,9 @@ contains
       integer :: i, j, len_t, num_co
 
       len_t  = size(time)
-      ! num_co = size(thetas)
       w      = 2*pi*f
 
-!~ 		Calculate tau
+      ! Calculate tau
       SSA = 0; SCA = 0
       do i=1, len_t
          alpha = 2*(-w*time(i) + m*thetas(i) + n*phis(i))
@@ -34,7 +32,7 @@ contains
       end do
       tau = 0.5*atan(SSA/SCA)
 
-      !~ 		Calculate periodogram
+      ! Calculate periodogram
       YY = sum(sigs**2)
       YC=0.; YS=0.; CC=0.; SS=0.
       alpha_coils = m*thetas + n*phis - tau
@@ -50,9 +48,10 @@ contains
 
    end function lomb3_difftimes
 
+
+! Calculates the Lomb periodogram with spatial dependencies given by the angles
+! thetas and phis, for mode number m, n, and frequency f
    function lomb3(time, thetas, phis, sigs, m, n, f) result(P)
-!~ 		Calculates the Lomb periodogram with spatial dependencies given by the angles
-!~      thetas and phis, for mode number m, n, and frequency f
       implicit none
 
       real*8, parameter  :: pi = 4*atan(1.)
@@ -67,7 +66,7 @@ contains
       num_co = size(thetas)
       w      = 2*pi*f
 
-!~ 		Calculate tau
+      ! Calculate tau
       SSA = 0; SCA = 0
       do i=1, len_t, 1
          do j=1, num_co, 1
@@ -78,7 +77,7 @@ contains
       end do
       tau = 0.5*atan(SSA/SCA)
 
-!~ 		Calculate periodogram
+      ! Calculate periodogram
       YY = sum(sigs**2)
       YC=0.; YS=0.; CC=0.; SS=0.
       do j=1, num_co
@@ -96,6 +95,8 @@ contains
 
    end function lomb3
 
+
+! Calculates the 2D Lomb periodogram for a single angle
    function lomb2(time, thetas, sigs, m, f) result(P)
 
       real*8, intent(in) :: time(:), thetas(:), sigs(:,:), m, f
@@ -111,7 +112,7 @@ contains
       num_co = size(thetas)
       w      = 2*pi*f
 
-!~ 		Calculate tau
+      ! Calculate tau
       SSA = 0; SCA = 0
       do i=1, len_t, 1
          do j=1, num_co, 1
@@ -122,7 +123,7 @@ contains
       end do
       tau = 0.5*atan(SSA/SCA)
 
-!~ 		Calculate periodogram
+      ! Calculate periodogram
       YY = sum(sigs**2)
       YC=0.; YS=0.; CC=0.; SS=0.
       do j=1, num_co
@@ -141,8 +142,11 @@ contains
       return
 
    end function lomb2
+
 end module helper
 
+
+! Calculates the 3D Lomb periodogram for a mesh in ns and ms, with non-equispaced times
 subroutine easylomb3_difftimes(time, thetas, phis, sigs, f, ns, ms, ntime, nn, nm, mapa)
 
    use helper, only : lomb3_difftimes
@@ -165,6 +169,8 @@ subroutine easylomb3_difftimes(time, thetas, phis, sigs, f, ns, ms, ntime, nn, n
 
 end subroutine easylomb3_difftimes
 
+
+! Calculates the 3D Lomb periodogram for a mesh in ns and ms
 subroutine easylomb3(time, thetas, phis, sigs, f, ns, ms, ntime, ncoils, nn, nm, mapa)
 
    use helper, only : lomb3
@@ -187,6 +193,8 @@ subroutine easylomb3(time, thetas, phis, sigs, f, ns, ms, ntime, ncoils, nn, nm,
 
 end subroutine easylomb3
 
+
+! Calculates the 2D Lomb periodogram for an array of ms
 subroutine easylomb2(time, thetas, sigs, f, ms, ntime, ncoils, nm, mapa)
 
    use helper, only : lomb2
