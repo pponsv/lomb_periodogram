@@ -4,6 +4,10 @@ from .synth import *
 from .plots import *
 
 
+def easylomb3_difftimes(*args, **kwargs):
+    return fl.easylomb3_difftimes(*args, **kwargs).T
+
+
 def easylomb3(*args, **kwargs):
     r"""
     Calculates the lomb periodogram for an array of signals at different positions
