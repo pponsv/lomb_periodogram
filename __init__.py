@@ -4,11 +4,11 @@ from .synth import *
 from .plots import *
 
 
-def easylomb3_difftimes(*args, **kwargs):
-    return fl.easylomb3_difftimes(*args, **kwargs).T
+def easylomb3_difftimes(time, thetas, phis, sigs, f, ns, ms):
+    return fl.easylomb3_difftimes(time, thetas, phis, sigs, f, ns, ms).T
 
 
-def easylomb3(*args, **kwargs):
+def easylomb3(time, thetas, phis, sigs, f, ns, ms):
     r"""
     Calculates the lomb periodogram for an array of signals at different positions
     (given by their magnetic coordinates).
@@ -58,10 +58,10 @@ def easylomb3(*args, **kwargs):
 
         -`mapa`: 2D-array with the values of the periodogram
     """
-    return fl.easylomb3(*args, **kwargs).T
+    return fl.easylomb3(time, thetas, phis, sigs, f, ns, ms).T
 
 
-def easylomb2(*args, **kwargs):
+def easylomb2(time, thetas, sigs, f, ms):
     r"""
     Same as above, but considering one angle equal to zero.
 
@@ -84,7 +84,4 @@ def easylomb2(*args, **kwargs):
 
         -`mapa`: 1D-array with the values of the periodogram
     """
-    return fl.easylomb2(*args, **kwargs)
-
-
-# ~ __all__ = ["plot"]
+    return fl.easylomb2(time, thetas, sigs, f, ms)
