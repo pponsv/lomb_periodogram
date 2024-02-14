@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 from matplotlib import gridspec
-from matplotlib.ticker import MultipleLocator
+from matplotlib.ticker import MultipleLocator, MaxNLocator
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 import numpy as np
 from .main import detect_peaks
@@ -212,16 +212,21 @@ def plotmapa_alone_ax(mapa, ns, ms, ax, norm=None, title=""):
         # linewidth=0.01,
         # edgecolors='face'
     )
-    cbar = plt.colorbar(img, ax=ax, label="P [a.u]", format="%.1e")
-    # args = np.array(np.unravel_index(mapa.argmax(), mapa.shape))
-    ax.set_ylabel("m")
+    cbar = ax.get_figure().colorbar(
+        img,
+        ax=ax,
+        label="P [a.u]",
+        fraction=0.1,
+        pad=0.02,
+        format="%.1e",
+    )
     ax.xaxis.set_minor_locator(MultipleLocator(1))
     ax.yaxis.set_minor_locator(MultipleLocator(1))
     ax.xaxis.set_major_locator(MultipleLocator(5))
     ax.yaxis.set_major_locator(MultipleLocator(5))
     ax.grid(which="major", color="w", lw=0.3, alpha=0.2, ls="--", zorder=1000)
     ax.grid(which="minor", color="r", lw=0.1, alpha=0.5, ls="--", zorder=1000)
-
-    ax.set_xlabel("n")
+    # ax.set(xlabel="n", ylabel="m", title=title)
+    ax.set(xlabel="Toroidal mode number", ylabel="Poloidal mode number", title=title)
 
     return ax
