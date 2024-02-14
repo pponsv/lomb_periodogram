@@ -18,7 +18,7 @@ contains
       real*8  :: P
       real*8  :: w, alpha, tau
       real*8  :: SSA, SCA, YY, YC, YS, CC, SS, alpha_coils(size(thetas))
-      integer :: i, j, len_t, num_co
+      integer :: i, len_t
 
       len_t  = size(time)
       w      = 2*pi*f
@@ -157,7 +157,6 @@ subroutine easylomb3_difftimes(time, thetas, phis, sigs, f, ns, ms, ntime, nn, n
 
    real*8, intent(out) :: mapa(nn, nm)
    integer :: i, j
-   real*8 :: tmp
 
 !$OMP PARALLEL DO
    do j=1, nm
@@ -181,7 +180,6 @@ subroutine easylomb3(time, thetas, phis, sigs, f, ns, ms, ntime, ncoils, nn, nm,
 
    real*8, intent(out) :: mapa(nn, nm)
    integer :: i, j
-   real*8 :: tmp
 
 !$OMP PARALLEL DO
    do j=1, nm
@@ -205,7 +203,6 @@ subroutine easylomb2(time, thetas, sigs, f, ms, ntime, ncoils, nm, mapa)
 
    real*8, intent(out) :: mapa(nm)
    integer             :: j
-   real*8              :: tmp
 
 !$OMP PARALLEL DO
    do j=1, nm

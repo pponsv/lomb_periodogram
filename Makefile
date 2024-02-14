@@ -10,14 +10,15 @@
 MAIN = flomb
 DIR  = $(shell basename $(CURDIR))
 
-.PHONY : all clean doc
+.PHONY : all clean doc compile
 
-all: ./src/main.f90
-	f2py -c --f90flags='-Wno-tabs -fopenmp -O2' -lgomp -m $(MAIN) $<
-	@$(MAKE) doc
+all: compile doc
 
+compile: ./src/lomb_fortran.f90
+	cd src/ && python3 -m numpy.f2py -c --f90flags='-Wno-tabs -fopenmp -O2' --build-dir bld/ -lgomp -m $(MAIN) ../$<
+	
 clean:
-	rm -f *.so
+	rm -f ./*.so ./src/*.so
 
 doc:
 	(cd .. ; pdoc --math $(CURDIR) -o ./$(DIR)/doc/docs)

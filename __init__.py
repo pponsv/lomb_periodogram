@@ -1,7 +1,7 @@
-from . import flomb as fl
-from .main import *
-from .synth import *
-from .plots import *
+from .src import flomb as fl
+from .src.main import *
+from .src.synth import *
+from .src.plots import *
 
 
 def easylomb3_difftimes(time, thetas, phis, sigs, f, ns, ms):
