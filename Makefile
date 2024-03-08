@@ -12,7 +12,7 @@ DIR  = $(shell basename $(CURDIR))
 
 .PHONY : all clean doc compile
 
-all: compile doc
+all: compile
 
 compile: ./src/lomb_fortran.f90
 	cd src/ && python3 -m numpy.f2py -c --f90flags='-Wno-tabs -fopenmp -O2' --build-dir bld/ -lgomp -m $(MAIN) ../$<

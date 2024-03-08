@@ -224,8 +224,8 @@ def plotmapa_alone_ax(mapa, ns, ms, ax, norm=None, title=""):
     ax.yaxis.set_minor_locator(MultipleLocator(1))
     ax.xaxis.set_major_locator(MultipleLocator(5))
     ax.yaxis.set_major_locator(MultipleLocator(5))
-    ax.grid(which="major", color="w", lw=0.3, alpha=0.2, ls="--", zorder=1000)
-    ax.grid(which="minor", color="r", lw=0.1, alpha=0.5, ls="--", zorder=1000)
+    # ax.grid(which="major", color="w", lw=0.3, alpha=0.2, ls="--", zorder=1000)
+    # ax.grid(which="minor", color="r", lw=0.1, alpha=0.5, ls="--", zorder=1000)
     # ax.set(xlabel="n", ylabel="m", title=title)
     ax.set(xlabel="Toroidal mode number", ylabel="Poloidal mode number", title=title)
 
