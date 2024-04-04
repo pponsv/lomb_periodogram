@@ -14,15 +14,19 @@ def single_signal_noise(t, modes, theta, phi, anoise=0.2, pnoise=0.2):
     fac = np.sum(np.abs(modes[:, 3])) * anoise
     sig = np.zeros(t.shape, dtype=np.complex128)
     for mode in modes:
-        m, n, w, amp = mode
+        m, n, f, amp = mode
         tmpnoise = 2 * np.pi * pnoise * np.random.normal(0, pnoise, t.shape)
-        sig += amp * np.exp(1j * (m * theta + n * phi - w * t + tmpnoise))
+        sig += amp * np.exp(
+            1j * (m * theta + n * phi - 2 * np.pi * f * t + tmpnoise)
+        )
     return np.real(sig + (np.random.rand(len(t)) - 0.5) * fac)
 
 
 def csignal(t, modes, thetas, phis, anoise=0.2, pnoise=0.2):
     """
     Makes a matrix of signals, optionally with amplitude and/or phase noise
+
+    modes: [[m, n, f, amp], ...]
     """
     smatrix = []
     for theta, phi in zip(thetas, phis):

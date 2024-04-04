@@ -53,11 +53,12 @@ class Lomb_vec:
             self, "mapa"
         ), "You must calculate the periodogram first"
         if ax is None:
-            fig = plt.figure(figsize=(3.39, 3.39))
+            fig = plt.figure(figsize=(3.39, 2.5), tight_layout=True)
             ax = fig.add_subplot(1, 1, 1)
         self.ax = ax
         self.fig = ax.get_figure()
         plotmapa_alone_ax(self.mapa, self.ns, self.ms, ax=self.ax)
+        ax.set_aspect("equal")
         return self.ax.get_figure(), self.ax
 
     def to_hdf(self, filename: str):
