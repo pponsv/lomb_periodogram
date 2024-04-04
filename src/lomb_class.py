@@ -62,15 +62,10 @@ class Lomb_vec:
         return self.ax.get_figure(), self.ax
 
     def to_hdf(self, filename: str):
+        params = ["time", "thetas", "phis", "sigs", "ns", "ms", "mapa", "f0"]
         with h5py.File(filename, "w") as f:
-            f.create_dataset("time", data=self.time)
-            f.create_dataset("thetas", data=self.thetas)
-            f.create_dataset("phis", data=self.phis)
-            f.create_dataset("sigs", data=self.sigs)
-            f.create_dataset("ns", data=self.ns)
-            f.create_dataset("ms", data=self.ms)
-            f.create_dataset("mapa", data=self.mapa)
-            f.create_dataset("f0", data=self.f0)
+            for param in params:
+                f.create_dataset(param, data=getattr(self, param))
 
     @classmethod
     def read_hdf(cls, filename: str):
