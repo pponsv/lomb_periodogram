@@ -1,1 +1,2 @@
-from . import main, plots, synth, flomb
+from . import plots, synth, utils, lomb
+from .lomb_class import Lomb_vec

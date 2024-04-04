@@ -145,69 +145,73 @@ contains
 
 end module helper
 
-
+module lomb_f
+   implicit none
+contains
 ! Calculates the 3D Lomb periodogram for a mesh in ns and ms, with non-equispaced times
-subroutine easylomb3_difftimes(time, thetas, phis, sigs, f, ns, ms, ntime, nn, nm, mapa)
+   subroutine easylomb3_difftimes(time, thetas, phis, sigs, f, ns, ms, ntime, nn, nm, mapa)
 
-   use helper, only : lomb3_difftimes
+      use helper, only : lomb3_difftimes
 
-   integer, intent(in) :: ntime, nn, nm
-   real*8, intent(in)  :: f, thetas(ntime), phis(ntime), ns(nn), ms(nm)
-   real*8, intent(in)  :: time(ntime), sigs(ntime)
+      integer, intent(in) :: ntime, nn, nm
+      real*8, intent(in)  :: f, thetas(ntime), phis(ntime), ns(nn), ms(nm)
+      real*8, intent(in)  :: time(ntime), sigs(ntime)
 
-   real*8, intent(out) :: mapa(nn, nm)
-   integer :: i, j
+      real*8, intent(out) :: mapa(nn, nm)
+      integer :: i, j
 
 !$OMP PARALLEL DO
-   do j=1, nm
-      do i=1, nn
-         mapa(i,j) = lomb3_difftimes(time, thetas, phis, sigs, ms(j), ns(i), f)
+      do j=1, nm
+         do i=1, nn
+            mapa(i,j) = lomb3_difftimes(time, thetas, phis, sigs, ms(j), ns(i), f)
+         end do
       end do
-   end do
 !$OMP END PARALLEL DO
 
-end subroutine easylomb3_difftimes
+   end subroutine easylomb3_difftimes
 
 
 ! Calculates the 3D Lomb periodogram for a mesh in ns and ms
-subroutine easylomb3(time, thetas, phis, sigs, f, ns, ms, ntime, ncoils, nn, nm, mapa)
+   subroutine easylomb3(time, thetas, phis, sigs, f, ns, ms, ntime, ncoils, nn, nm, mapa)
 
-   use helper, only : lomb3
+      use helper, only : lomb3
 
-   integer, intent(in) :: ntime, ncoils, nn, nm
-   real*8, intent(in)  :: f, thetas(ncoils), phis(ncoils), ns(nn), ms(nm)
-   real*8, intent(in)  :: time(ntime), sigs(ncoils, ntime)
+      integer, intent(in) :: ntime, ncoils, nn, nm
+      real*8, intent(in)  :: f, thetas(ncoils), phis(ncoils), ns(nn), ms(nm)
+      real*8, intent(in)  :: time(ntime), sigs(ncoils, ntime)
 
-   real*8, intent(out) :: mapa(nn, nm)
-   integer :: i, j
+      real*8, intent(out) :: mapa(nn, nm)
+      integer :: i, j
 
 !$OMP PARALLEL DO
-   do j=1, nm
-      do i=1, nn
-         mapa(i,j) = lomb3(time, thetas, phis, sigs, ms(j), ns(i), f)
+      do j=1, nm
+         do i=1, nn
+            mapa(i,j) = lomb3(time, thetas, phis, sigs, ms(j), ns(i), f)
+         end do
       end do
-   end do
 !$OMP END PARALLEL DO
 
-end subroutine easylomb3
+   end subroutine easylomb3
 
 
 ! Calculates the 2D Lomb periodogram for an array of ms
-subroutine easylomb2(time, thetas, sigs, f, ms, ntime, ncoils, nm, mapa)
+   subroutine easylomb2(time, thetas, sigs, f, ms, ntime, ncoils, nm, mapa)
 
-   use helper, only : lomb2
+      use helper, only : lomb2
 
-   integer, intent(in) :: ntime, ncoils, nm
-   real*8, intent(in)  :: f, thetas(ncoils), ms(nm)
-   real*8, intent(in)  :: time(ntime), sigs(ncoils, ntime)
+      integer, intent(in) :: ntime, ncoils, nm
+      real*8, intent(in)  :: f, thetas(ncoils), ms(nm)
+      real*8, intent(in)  :: time(ntime), sigs(ncoils, ntime)
 
-   real*8, intent(out) :: mapa(nm)
-   integer             :: j
+      real*8, intent(out) :: mapa(nm)
+      integer             :: j
 
 !$OMP PARALLEL DO
-   do j=1, nm
-      mapa(j) = lomb2(time, thetas, sigs, ms(j), f)
-   end do
+      do j=1, nm
+         mapa(j) = lomb2(time, thetas, sigs, ms(j), f)
+      end do
 !$OMP END PARALLEL DO
 
-end subroutine easylomb2
+   end subroutine easylomb2
+
+end module lomb_f

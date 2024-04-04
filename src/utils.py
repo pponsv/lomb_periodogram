@@ -1,27 +1,27 @@
 import numpy as np
 
 
-def bandpass(sig, flim, dt=0.001):
+def bandpass(sig: np.ndarray, flim: tuple, dt: float = 0.001):
     """
-    Simple bandpass filter.
+    Apply a simple bandpass filter to the input signal.
 
-    - Input:
+    Parameters:
+        sig (array-like): The input signal.
+        flim (tuple): The frequency limits (low, high) for the bandpass filter.
+        dt (float, optional): The interval between samples (1/frequency). Default is 0.001.
 
-        - `sig`: 1D array, signal.
-
-        - `flim`: Frequency limits (low, high)
-
-        - `dt`: Interval between samples (1/frequency)
+    Returns:
+        array-like: The filtered signal.
     """
     ff = np.fft.rfft(sig)
-    fr = np.fft.rfftfreq(len(sig), 0.001)
+    fr = np.fft.rfftfreq(len(sig), dt)
     mask = (np.abs(fr) < flim[1]) & (np.abs(fr) > flim[0])
     ff -= ff * (~mask)
     nsig = np.fft.irfft(ff, len(sig))
     return nsig
 
 
-def mat_bandpass(msig, flim, dt=0.001):
+def mat_bandpass(msig: np.ndarray, flim: tuple, dt: float = 0.001):
     """
     Simple bandpass filter for 2D arrays (along the second dimension)
 
@@ -39,7 +39,7 @@ def mat_bandpass(msig, flim, dt=0.001):
     return np.array(nmat)
 
 
-def detect_peaks(arr, num=3):
+def detect_peaks(arr: np.ndarray, num: int = 3):
     """
     Simple peak-detecting algorithm for 2D arrays.
 
@@ -70,7 +70,3 @@ def detect_peaks(arr, num=3):
                 except:
                     pass
     return np.array(peaks)
-
-
-if __name__ == "__main__":
-    pass

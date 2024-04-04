@@ -4,7 +4,7 @@ from matplotlib import gridspec
 from matplotlib.ticker import MultipleLocator, MaxNLocator
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 import numpy as np
-from .main import detect_peaks
+from .utils import detect_peaks
 
 
 def plotlomb2(x, y, xlabel="m", title=""):
@@ -25,7 +25,10 @@ def plotmapa(mapa, ns, ms, norm=None, npeaks=3, title="", fig=None):
     # mapa=mapa.T
     if fig is None:
         fig = plt.figure(
-            figsize=[9, 6], constrained_layout=False, tight_layout=False, dpi=100
+            figsize=(9, 6),
+            constrained_layout=False,
+            tight_layout=False,
+            dpi=100,
         )
     gs = gridspec.GridSpec(
         2,
@@ -85,7 +88,7 @@ def plotmapa(mapa, ns, ms, norm=None, npeaks=3, title="", fig=None):
     ax2.xaxis.set_minor_locator(MultipleLocator(1))
     ax2.xaxis.set_major_locator(MultipleLocator(5))
     ax2.grid(True, which="both", axis="x", ls="--", lw=0.5)
-    ax2.set_ylim([0, 1.05 * mapa.max()])
+    ax2.set_ylim((0, 1.05 * mapa.max()))
     ax2.set_xlabel("n")
     ax2.set_ylabel("P [a.u]")
     ax3.grid(True, which="both", axis="y", ls="--", lw=0.5)
@@ -93,7 +96,7 @@ def plotmapa(mapa, ns, ms, norm=None, npeaks=3, title="", fig=None):
     ax3.yaxis.set_major_locator(MultipleLocator(5))
     ax3.yaxis.set_label_position("right")
     ax3.yaxis.tick_right()
-    ax3.set_xlim([0, 1.05 * mapa.max()])
+    ax3.set_xlim((0, 1.05 * mapa.max()))
     ax3.set_ylabel("m")
     ax3.invert_xaxis()
     ax3.set_xlabel("P [a.u]")
@@ -141,7 +144,9 @@ def plotmapa_alone_new(mapa, ns, ms, ax, title="", norm=None):
     ax.grid(which="minor", color="r", lw=0.1, alpha=0.2, ls="--", zorder=1000)
 
 
-def plotmapa_alone(mapa, ns, ms, norm=None, title="", fig=None, ax=None, figsize=None):
+def plotmapa_alone(
+    mapa, ns, ms, norm=None, title="", fig=None, ax=None, figsize=None
+):
     """
     Plots the 3D lomb periodogram, and optionally finds the points with maxima.
     """
@@ -149,7 +154,10 @@ def plotmapa_alone(mapa, ns, ms, norm=None, title="", fig=None, ax=None, figsize
     if ax is None:
         if fig is None:
             fig = plt.figure(
-                figsize=figsize, constrained_layout=False, tight_layout=False, dpi=100
+                figsize=figsize,
+                constrained_layout=False,
+                tight_layout=False,
+                dpi=100,
             )
         else:
             clearfig(fig)
@@ -227,6 +235,10 @@ def plotmapa_alone_ax(mapa, ns, ms, ax, norm=None, title=""):
     # ax.grid(which="major", color="w", lw=0.3, alpha=0.2, ls="--", zorder=1000)
     # ax.grid(which="minor", color="r", lw=0.1, alpha=0.5, ls="--", zorder=1000)
     # ax.set(xlabel="n", ylabel="m", title=title)
-    ax.set(xlabel="Toroidal mode number", ylabel="Poloidal mode number", title=title)
+    ax.set(
+        xlabel="Toroidal mode number (n)",
+        ylabel="Poloidal mode number (m)",
+        title=title,
+    )
 
     return ax

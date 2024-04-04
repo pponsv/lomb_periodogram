@@ -35,8 +35,8 @@ lgomp =  meson.get_compiler('c').find_library('gomp')
 lomb_fortran_custom_target = custom_target('flomb.c',
   input : ['src/lomb_fortran.f90'], 
   output : [MODULE_NAME+'module.c', 
-#   MODULE_NAME+'-f2pywrappers2.f90', 
-  MODULE_NAME+'-f2pywrappers.f'],
+#   MODULE_NAME+'-f2pywrappers.f', 
+  MODULE_NAME+'-f2pywrappers2.f90'],
   command : [py, '-m', 'numpy.f2py', '@INPUT@', '-m', MODULE_NAME, '--lower']
 )
 
