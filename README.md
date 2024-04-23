@@ -4,8 +4,7 @@ This is a python module that wraps a Fortran implementation of the 3-D Lomb peri
 
 ## Documentation
 
-The documentation of the python API can be found [here](https://pponsv.github.io/lomb_periodogram).
-A description of the periodogram and a jupyter notebook with an example can also be found [here](./doc/)
+A description of the periodogram and a jupyter notebook with an example can be found [here](./doc/)
 
 ## Features:
 
@@ -37,7 +36,7 @@ The Fortran code must be compiled and wrapped with f2py to be run.
 
 - matplotlib
 
-- pdoc (to generate the documentation)
+- meson (for building)
 
 ### Compilation:
 
