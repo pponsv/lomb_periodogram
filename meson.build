@@ -30,7 +30,7 @@ incdir_f2py = run_command(py,
 # endforeach
 
 openmp = dependency('openmp')
-lgomp =  meson.get_compiler('c').find_library('gomp')
+# lgomp =  meson.get_compiler('c').find_library('gomp')
 
 lomb_fortran_custom_target = custom_target('flomb.c',
   input : ['src/lomb_fortran.f90'], 
@@ -46,6 +46,6 @@ py.extension_module(MODULE_NAME,
   ['src/lomb_fortran.f90', lomb_fortran_custom_target],
   incdir_f2py / 'fortranobject.c', # f2py file
   include_directories: inc_np,
-  dependencies : [py_dep, openmp, lgomp],
+  dependencies : [py_dep, openmp],
   install : false
 )

@@ -199,7 +199,9 @@ def plotmapa_alone(
     return fig, ax1
 
 
-def plotmapa_alone_ax(mapa, ns, ms, ax, norm=None, title=""):
+def plotmapa_alone_ax(
+    mapa, ns, ms, ax, norm=None, title="", colorbar=True, labels=True
+):
     """
     Plots the 3D lomb periodogram, and optionally finds the points with maxima.
     """
@@ -220,14 +222,15 @@ def plotmapa_alone_ax(mapa, ns, ms, ax, norm=None, title=""):
         # linewidth=0.01,
         # edgecolors='face'
     )
-    cbar = ax.get_figure().colorbar(
-        img,
-        ax=ax,
-        label="P [a.u]",
-        fraction=0.1,
-        pad=0.02,
-        format="%.1e",
-    )
+    if colorbar:
+        cbar = ax.get_figure().colorbar(
+            img,
+            ax=ax,
+            label="P [a.u]",
+            fraction=0.1,
+            pad=0.02,
+            format="%.1e",
+        )
     ax.xaxis.set_minor_locator(MultipleLocator(1))
     ax.yaxis.set_minor_locator(MultipleLocator(1))
     ax.xaxis.set_major_locator(MultipleLocator(5))
@@ -235,10 +238,11 @@ def plotmapa_alone_ax(mapa, ns, ms, ax, norm=None, title=""):
     # ax.grid(which="major", color="w", lw=0.3, alpha=0.2, ls="--", zorder=1000)
     # ax.grid(which="minor", color="r", lw=0.1, alpha=0.5, ls="--", zorder=1000)
     # ax.set(xlabel="n", ylabel="m", title=title)
-    ax.set(
-        xlabel="Toroidal mode number (n)",
-        ylabel="Poloidal mode number (m)",
-        title=title,
-    )
+    if labels:
+        ax.set(
+            xlabel="Toroidal mode number (n)",
+            ylabel="Poloidal mode number (m)",
+            title=title,
+        )
 
     return ax
