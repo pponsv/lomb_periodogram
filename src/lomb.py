@@ -1,4 +1,4 @@
-from .flomb import lomb_f
+from ..bin.flomb import lomb_f
 
 r"""
 The Lomb periodogram for an array of signals at different positions (given by their magnetic 

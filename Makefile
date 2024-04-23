@@ -10,26 +10,18 @@
 MAIN = flomb
 DIR  = $(shell basename $(CURDIR))
 
-.PHONY : all clean doc compile
+.PHONY : all clean install meson_configure
 
-all: meson_configure meson_build
+all: install
 
-meson_init:
+bld:
 	meson bld
 
-meson_configure:
+meson_configure: bld
 	meson setup --wipe bld
 
-meson_build:
-	meson compile -C bld
-	cp bld/$(MAIN).*.so ./src/
+install: meson_configure
+	meson install -C bld
 
-compile: ./src/lomb_fortran.f90
-	python3 -m numpy.f2py -c --f90flags='-Wno-tabs -fopenmp -O2' --build-dir bld/ -lgomp -m $(MAIN) $<
-	
 clean:
-	rm -rf ./*.so ./src/*.so ./bld
-
-doc:
-	(cd .. ; pdoc --math $(CURDIR) -o ./$(DIR)/doc/docs)
-	echo $(DIR)
+	rm -rf ./*.so ./src/*.so ./bld ./bin/*.so
