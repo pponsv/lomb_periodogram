@@ -48,6 +48,18 @@ class Lomb_vec:
             self.ms,
         )
 
+    def easylomb3(self, f0: float):
+        self.f0 = f0
+        self.mapa = easylomb3(
+            self.time,
+            self.thetas,
+            self.phis,
+            self.sigs,
+            self.f0,
+            self.ns,
+            self.ms,
+        )
+
     def plotmapa(self, ax: mpl_axes.Axes | None = None):
         assert hasattr(
             self, "mapa"
