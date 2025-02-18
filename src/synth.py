@@ -20,6 +20,9 @@ class Modes:
     def __iter__(self):
         return iter(self.modes)
 
+    def __getitem__(self, index):
+        return self.modes[index]
+
     def __add__(self, other):
         if isinstance(other, Mode):
             return Modes(self.modes + [other])
